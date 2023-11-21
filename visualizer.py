@@ -3,6 +3,7 @@ import itertools
 import matplotlib.pyplot as plt
 import matplotlib.colors as mcolors
 import numpy as np
+from matplotlib.font_manager import FontProperties
 from moviepy.editor import CompositeVideoClip, ImageClip
 
 left_margin_ratio, right_margin_ratio = 0.1, 0.9
@@ -72,10 +73,16 @@ def generate_video(input_text, input_note, input_duration):
     # Adjust margins
     plt.subplots_adjust(left=left_margin_ratio, right=right_margin_ratio)
 
+    # Specify the font path
+    font_path = "./fonts/NotoSansSC-Regular.ttf"
+
+    # Create a FontProperties object and set the font properties
+    font_prop = FontProperties(fname=font_path)
+
     # Add the text
     current_time = 0
     for char, duration in zip(characters, durations):
-        ax.text(current_time * pixels_per_sec, len(note_order) + char_offset, char, ha='center', va='bottom')
+        ax.text(current_time * pixels_per_sec, len(note_order) + char_offset, char, ha='center', va='bottom', fontproperties=font_prop)
         current_time += sum(duration)
 
     # Label the y-axis with the note names
